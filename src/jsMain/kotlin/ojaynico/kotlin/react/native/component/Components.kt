@@ -50,6 +50,35 @@ external interface ViewProps : PropsWithChildren {
     var nextFocusRight: Number
     var nextFocusUp: Number
     var focusable: Boolean?
+    var role: String
+    var id: String
+    var collapsableChildren: Boolean?
+    @JsName("aria-label")
+    var ariaLabel: String
+    @JsName("aria-busy")
+    var ariaBusy: Boolean?
+    @JsName("aria-checked")
+    var ariaChecked: dynamic
+    @JsName("aria-disabled")
+    var ariaDisabled: Boolean?
+    @JsName("aria-expanded")
+    var ariaExpanded: Boolean?
+    @JsName("aria-hidden")
+    var ariaHidden: Boolean?
+    @JsName("aria-live")
+    var ariaLive: String
+    @JsName("aria-modal")
+    var ariaModal: Boolean?
+    @JsName("aria-selected")
+    var ariaSelected: Boolean?
+    @JsName("aria-valuemax")
+    var ariaValueMax: Number
+    @JsName("aria-valuemin")
+    var ariaValueMin: Number
+    @JsName("aria-valuenow")
+    var ariaValueNow: Number
+    @JsName("aria-valuetext")
+    var ariaValueText: String
 }
 
 external val View : FC<ViewProps>
@@ -90,6 +119,11 @@ external interface TextProps : PropsWithChildren {
     var textBreakStrategy: String
     var onPressIn: (event: dynamic) -> Unit
     var onPressOut: (event: dynamic) -> Unit
+    var role: String
+    var android_hyphenationFrequency: String
+    var lineBreakStrategyIOS: String
+    @JsName("aria-label")
+    var ariaLabel: String
 }
 
 external val Text: FC<TextProps>
@@ -135,6 +169,14 @@ external interface ImageProps : Props {
     var resizeMode: String
     var source: dynamic
     var testID: String
+    var alt: String
+    var tintColor: dynamic
+    var width: Number
+    var height: Number
+    var src: dynamic
+    var srcSet: String
+    var crossOrigin: String
+    var referrerPolicy: String
 }
 
 external val Image: FC<ImageProps>
@@ -224,6 +266,16 @@ external interface TextInputProps : Props {
     var textBreakStrategy: String
     var underlineColorAndroid: String
     var value: String
+    var autoComplete: String
+    var enterKeyHint: String
+    var inputMode: String
+    var readOnly: Boolean?
+    var rows: Number
+    var submitBehavior: String
+    var cursorColor: String
+    var selectionHandleColor: String
+    var lineBreakStrategyIOS: String
+    var disableKeyboardShortcuts: Boolean?
 }
 
 /*external class TextInput : Component<TextInputProps, State> {
@@ -280,6 +332,12 @@ external interface FlatListProps : Props {
     var removeClippedSubviews: Boolean?
     var viewabilityConfig: dynamic
     var viewabilityConfigCallbackPairs: dynamic
+    var CellRendererComponent: dynamic
+    var ItemSeparatorComponent: dynamic
+    var ListEmptyComponent: dynamic
+    var ListFooterComponent: dynamic
+    var ListFooterComponentStyle: dynamic
+    var ListHeaderComponent: dynamic
 }
 
 /*external class FlatList : Component<FlatListProps, State> {
@@ -358,6 +416,8 @@ external interface ScrollViewProps : PropsWithChildren {
     var stickyHeaderIndices: Array<Int>
     var zoomScale: Int
     var stickyHeaderHiddenOnScroll: Boolean?
+    var automaticallyAdjustKeyboardInsets: Boolean?
+    var automaticallyAdjustsScrollIndicatorInsets: Boolean?
 }
 
 /*external class ScrollView : Component<ScrollViewProps, State> {
@@ -509,6 +569,8 @@ external interface ModalProps : PropsWithChildren {
     var supportedOrientations: dynamic
     var transparent: Boolean?
     var visible: Boolean?
+    var navigationBarTranslucent: Boolean?
+    var backdropColor: dynamic
 }
 
 external val Modal : FC<ModalProps>
@@ -528,6 +590,7 @@ external interface PressableProps : PropsWithChildren {
     var testOnly_pressed: Boolean?
     var onBlur: (event: dynamic) -> dynamic
     var onFocus: (event: dynamic) -> dynamic
+    var unstable_pressDelay: Number
 }
 
 external val Pressable : FC<PressableProps>
@@ -762,3 +825,56 @@ external interface InputAccessoryViewProps : Props {
 }
 
 external val InputAccessoryView : FC<InputAccessoryViewProps>
+
+external interface LayoutConformanceProps : PropsWithChildren {
+    var mode: String
+}
+
+external val experimental_LayoutConformance: FC<LayoutConformanceProps>
+
+external interface ProgressBarAndroidProps : Props {
+    var styleAttr: String
+    var color: dynamic
+    var indeterminate: Boolean?
+    var progress: Number
+    var animating: Boolean?
+    var style: dynamic
+    var testID: String
+}
+
+external val ProgressBarAndroid: FC<ProgressBarAndroidProps>
+
+external interface VirtualizedSectionListProps : PropsWithChildren {
+    var sections: Array<dynamic>
+    var renderItem: (info: dynamic) -> dynamic
+    var keyExtractor: (item: dynamic, index: Number) -> String
+    var stickySectionHeadersEnabled: Boolean?
+    var renderSectionHeader: (info: dynamic) -> dynamic
+    var renderSectionFooter: (info: dynamic) -> dynamic
+    var ItemSeparatorComponent: dynamic
+    var SectionSeparatorComponent: dynamic
+    var ListEmptyComponent: dynamic
+    var ListHeaderComponent: dynamic
+    var ListFooterComponent: dynamic
+    var onEndReached: (info: dynamic) -> Unit
+    var onRefresh: () -> Unit
+    var refreshing: Boolean?
+    var extraData: dynamic
+    var inverted: Boolean?
+    var horizontal: Boolean?
+    var initialNumToRender: Number
+}
+
+external val VirtualizedSectionList: FC<VirtualizedSectionListProps>
+
+external val Touchable: dynamic
+
+external val unstable_NativeText: FC<TextProps>
+
+external val unstable_NativeView: FC<ViewProps>
+
+external val unstable_VirtualView: FC<PropsWithChildren>
+
+external val unstable_VirtualColumn: FC<PropsWithChildren>
+
+external val unstable_VirtualRow: FC<PropsWithChildren>

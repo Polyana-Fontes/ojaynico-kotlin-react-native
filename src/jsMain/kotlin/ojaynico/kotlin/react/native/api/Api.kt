@@ -71,6 +71,12 @@ external class Animated : Component<Props, State> {
         fun track(tracking: dynamic)
     }
 
+    class Color(value: dynamic) {
+        fun setValue(value: dynamic)
+        fun setOffset(offset: Number)
+        fun interpolate(config: dynamic): dynamic
+    }
+
     class ValueXY {
         fun setValue(value: Number)
         fun setOffset(offset: Number)
@@ -113,7 +119,7 @@ external class Animated : Component<Props, State> {
 
 external object Appearance {
     fun getColorScheme(): dynamic
-    fun addChangeListener(listener: dynamic)
+    fun addChangeListener(listener: dynamic): dynamic
     fun removeChangeListener(listener: dynamic)
 }
 
@@ -142,7 +148,7 @@ external object AppRegistry {
 external class AppState {
     companion object {
         val currentState: dynamic
-        fun addEventListener(type: dynamic, handler: dynamic)
+        fun addEventListener(type: dynamic, handler: dynamic): dynamic
         fun removeEventListener(type: dynamic, handler: dynamic)
     }
 }
@@ -156,7 +162,7 @@ external class DevSettings {
 
 external class Dimensions {
     companion object {
-        fun addEventListener(type: dynamic, handler: dynamic)
+        fun addEventListener(type: dynamic, handler: dynamic): dynamic
         fun get(dim: dynamic): dynamic
         fun removeEventListener(type: dynamic, handler: dynamic)
         fun set(dims: dynamic)
@@ -197,6 +203,7 @@ external object Keyboard{
     fun removeListener(eventName: dynamic, callback: () -> Unit)
     fun removeAllListeners(eventName: String)
     fun dismiss()
+    fun isVisible(): Boolean
     fun scheduleLayoutAnimation(event: dynamic)
 }
 
@@ -280,13 +287,15 @@ external object Vibration {
 }
 
 external object BackHandler {
-    fun addEventListener(eventName: dynamic, handler: dynamic)
+    fun addEventListener(eventName: dynamic, handler: dynamic): dynamic
     fun exitApp()
     fun removeEventListener(eventName: dynamic, handler: dynamic)
 }
 
 external class PermissionsAndroid {
     companion object {
+        val PERMISSIONS: dynamic
+        val RESULTS: dynamic
         suspend fun check(permission: String): dynamic
         suspend fun request(permission: String, rationale: dynamic): dynamic
         fun requestMultiple(permissions: Array<dynamic>): dynamic
@@ -319,7 +328,16 @@ external object Settings {
     fun watchKeys(keys: dynamic, callback: () -> Unit): Number
 }
 
-external var Platform: dynamic = definedExternally
+external object Platform {
+    val OS: String
+    val Version: dynamic
+    val isPad: Boolean
+    val isTV: Boolean
+    val isVision: Boolean
+    val isTesting: Boolean
+    val constants: dynamic
+    fun select(specifics: dynamic): dynamic
+}
 
 external object AccessibilityInfo {
     fun isBoldTextEnabled(): Promise<JsBoolean>
