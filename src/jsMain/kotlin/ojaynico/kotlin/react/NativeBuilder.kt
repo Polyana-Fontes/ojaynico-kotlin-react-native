@@ -1,8 +1,5 @@
 package ojaynico.kotlin.react
 
-import ojaynico.kotlin.react.native.*
-import react.ReactNode
-
 /*fun RBuilder.view(handler: RElementBuilder<ViewProps>.() -> Unit) = child(View::class) {
     handler()
 }

@@ -3,17 +3,18 @@
 
 package ojaynico.kotlin.react.native.api
 
+import js.promise.Promise
 import ojaynico.kotlin.react.ComponentProvider
 import ojaynico.kotlin.react.native.component.*
 import react.Component
 import react.FC
 import react.Props
+import react.ReactNode
 import react.State
-import kotlin.js.Promise
 
 // Alert Component
 external class Alert: Component<Props, State> {
-    override fun render(): dynamic = definedExternally
+    override fun render(): ReactNode? = definedExternally
 
     class Buttons(text: String, onPress: () -> Unit, style: String = definedExternally)
 
@@ -31,27 +32,27 @@ external val AnimatedView : FC<ViewProps>
 external class Animated : Component<Props, State> {
 
     class View : Component<ViewProps, State> {
-        override fun render(): dynamic = definedExternally
+        override fun render(): ReactNode? = definedExternally
     }
 
     class Text : Component<TextProps, State> {
-        override fun render(): dynamic = definedExternally
+        override fun render(): ReactNode? = definedExternally
     }
 
     class Image : Component<ImageProps, State> {
-        override fun render(): dynamic = definedExternally
+        override fun render(): ReactNode? = definedExternally
     }
 
     class ScrollView : Component<ScrollViewProps, State> {
-        override fun render(): dynamic = definedExternally
+        override fun render(): ReactNode? = definedExternally
     }
 
     class FlatList : Component<FlatListProps, State> {
-        override fun render(): dynamic = definedExternally
+        override fun render(): ReactNode? = definedExternally
     }
 
     class SectionList : Component<SectionListProps, State> {
-        override fun render(): dynamic = definedExternally
+        override fun render(): ReactNode? = definedExternally
     }
 
     class Value(value: dynamic) {
@@ -107,7 +108,7 @@ external class Animated : Component<Props, State> {
         fun reset()
     }
 
-    override fun render(): dynamic = definedExternally
+    override fun render(): ReactNode? = definedExternally
 }
 
 external object Appearance {
@@ -321,16 +322,16 @@ external object Settings {
 external var Platform: dynamic = definedExternally
 
 external object AccessibilityInfo {
-    fun isBoldTextEnabled(): Promise<Boolean>
-    fun isGrayscaleEnabled(): Promise<Boolean>
-    fun isInvertColorsEnabled(): Promise<Boolean>
-    fun isReduceMotionEnabled(): Promise<Boolean>
-    fun isReduceTransparencyEnabled(): Promise<Boolean>
-    fun isScreenReaderEnabled(): Promise<Boolean>
+    fun isBoldTextEnabled(): Promise<JsBoolean>
+    fun isGrayscaleEnabled(): Promise<JsBoolean>
+    fun isInvertColorsEnabled(): Promise<JsBoolean>
+    fun isReduceMotionEnabled(): Promise<JsBoolean>
+    fun isReduceTransparencyEnabled(): Promise<JsBoolean>
+    fun isScreenReaderEnabled(): Promise<JsBoolean>
     fun setAccessibilityFocus(reactTag: Number)
     fun sendAccessibilityEvent_unstable(handle: dynamic, eventType: dynamic)
     fun announceForAccessibility(announcement: String)
-    fun getRecommendedTimeoutMillis(originalTimeout: Number): Promise<Number>
+    fun getRecommendedTimeoutMillis(originalTimeout: Number): Promise<JsNumber>
     fun addEventListener(eventName: String, handler: (args: dynamic) -> Unit): dynamic
     fun removeEventListener(eventName: String, handler: (args: dynamic) -> Unit)
 }

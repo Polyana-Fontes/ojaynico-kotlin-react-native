@@ -1,14 +1,15 @@
 package ojaynico.kotlin.react.navigator
 
-import csstype.HtmlAttributes
-import kotlinext.js.getOwnPropertyNames
-import kotlinx.browser.window
+import js.objects.Object
+import js.reflect.unsafeCast
 import ojaynico.kotlin.react.json
-import ojaynico.kotlin.react.native.*
 import ojaynico.kotlin.react.native.api.*
 import ojaynico.kotlin.react.native.component.StyleSheet
 import ojaynico.kotlin.react.native.component.View
 import react.*
+import web.events.EventHandler
+import web.history.history
+import web.window.window
 import kotlin.js.Json
 
 external interface RouteProps : Props {
@@ -31,7 +32,7 @@ fun buildSceneConfig(children: Array<Json>, sideMenu: FC<*>): Json {
     }
 
 
-    if (sideMenu != undefined) {
+    if (sideMenu.asDynamic() != undefined) {
         config["krnMenu"] = json {
             key = "krnMenu"
             component = sideMenu
@@ -62,7 +63,7 @@ val screenWidth = Dimensions.get("window").width
     var browserHistory: List<String>
 }*/
 
-external interface NavigatorProps : Props {
+external interface NavigatorProps : PropsWithChildren {
     var sideMenu: FC<*>
     var menuPosition: String
     var disableMenuGesture: Boolean
@@ -105,7 +106,7 @@ val Navigator = FC<NavigatorProps> { props ->
 
     val handlePop = {
         Animated.asDynamic().timing(_animatedValue, json {
-            toValue = if (state.showSideMenu && props.menuPosition == "left") -screenWidth else screenWidth
+            toValue = if (showSideMenu && props.menuPosition == "left") -screenWidth else screenWidth
             duration = 250
             useNativeDriver = true
         }).start {
@@ -130,7 +131,7 @@ val Navigator = FC<NavigatorProps> { props ->
                 }
 
                 if (Platform.OS == "web") {
-                    window.history.back()
+                    history.back()
                 }
             }
         }
@@ -163,12 +164,12 @@ val Navigator = FC<NavigatorProps> { props ->
         urlProps
     }
 
-    useEffect(dependencies = emptyArray()) {
+    useEffectOnce {
 
         firstTimeRender.current = false
 
         if (Platform.OS == "web" && !window.location.href.contains("/#/")) {
-            window.history.pushState("", "", "/#/")
+            history.pushState(null, "", "/#/")
         }
 
         initialSceneName = if (Platform.OS == "web" && getSceneNameFromUrl().isNotEmpty()) getSceneNameFromUrl() else props.asDynamic().children[0].props.name
@@ -189,7 +190,7 @@ val Navigator = FC<NavigatorProps> { props ->
         showSideMenu = false
 
         if (Platform.OS == "web") {
-            window.onhashchange = { hashChangeEvent ->
+            window.onhashchange = EventHandler {
                 onBrowserHashChange()
             }
         }
@@ -200,8 +201,8 @@ val Navigator = FC<NavigatorProps> { props ->
         )
     }
 
-    useEffect(dependencies = emptyArray()) {
-        return@useEffect BackHandler.removeEventListener(
+    useEffectOnce {
+        BackHandler.removeEventListener(
             "hardwareBackPress",
             backAction()
         )
@@ -228,14 +229,14 @@ val Navigator = FC<NavigatorProps> { props ->
             if (Platform.OS == "web") {
                 if (initialSceneName == sceneName) {
                     if (urlata.isNotEmpty())
-                        window.history.pushState("", "", "/#${HtmlAttributes.data}")
+                        history.pushState(null, "", "/#$urlata")
                     else
-                        window.history.pushState("", "", "/#/")
+                        history.pushState(null, "", "/#/")
                 } else {
                     if (urlata.isNotEmpty())
-                        window.history.pushState("", "", "/#/$sceneName${HtmlAttributes.data}")
+                        history.pushState(null, "", "/#/$sceneName$urlata")
                     else
-                        window.history.pushState("", "", "/#/$sceneName")
+                        history.pushState(null, "", "/#/$sceneName")
                 }
             }
         }
@@ -247,7 +248,7 @@ val Navigator = FC<NavigatorProps> { props ->
         return filterParam.split("/")*/
     }
 
-    useEffect(dependencies = arrayOf(stack)) {
+    useEffect(stack) {
         if (!firstTimeRender.current!!) {
             if (stack.last()["key"].toString() == "krnMenu") {
                 if (props.menuPosition == "left") {
@@ -272,8 +273,7 @@ val Navigator = FC<NavigatorProps> { props ->
 
         if (childProps != undefined && childProps != "") {
             var propsParams = ""
-            val props_tmp = childProps.unsafeCast<JSON>()
-            val childPropsNames = props_tmp.getOwnPropertyNames()
+            val childPropsNames = Object.getOwnPropertyNames(unsafeCast(childProps as Any))
 
             for (propName in childPropsNames) {
                 propsParams += "/" + childProps[propName]
@@ -309,13 +309,15 @@ val Navigator = FC<NavigatorProps> { props ->
             flexDirection = "row"
         }
         asDynamic().onTouchStart = { e: dynamic ->
-            if (props.disableMenuGesture == undefined || !props.disableMenuGesture) {
+            val gestureDisabled: dynamic = props.disableMenuGesture
+            if (gestureDisabled == undefined || !gestureDisabled) {
                 val pageX = e.nativeEvent.pageX
                 touchX = pageX
             }
         }
         asDynamic().onTouchEnd = { e: dynamic ->
-            if (props.disableMenuGesture == undefined || !props.disableMenuGesture) {
+            val gestureDisabled: dynamic = props.disableMenuGesture
+            if (gestureDisabled == undefined || !gestureDisabled) {
                 val positionX = e.nativeEvent.pageX
                 val range = screenWidth / 6
 

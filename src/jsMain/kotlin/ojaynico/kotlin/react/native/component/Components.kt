@@ -6,7 +6,7 @@ package ojaynico.kotlin.react.native.component
 import react.*
 
 // View Component
-external interface ViewProps : Props {
+external interface ViewProps : PropsWithChildren {
     var onStartShouldSetResponder: (dynamic) -> Boolean
     var accessible: Boolean?
     var accessibilityLabel: String
@@ -55,7 +55,7 @@ external interface ViewProps : Props {
 external val View : FC<ViewProps>
 
 // Text Component
-external interface TextProps : Props {
+external interface TextProps : PropsWithChildren {
     var accessibilityLabel: String
     var accessibilityHint: String
     var accessibilityRole: String
@@ -139,7 +139,7 @@ external interface ImageProps : Props {
 
 external val Image: FC<ImageProps>
 
-external interface ImageBackgroundProps : ImageProps, Props {
+external interface ImageBackgroundProps : ImageProps, PropsWithChildren {
     var imageStyle: dynamic
     var imageRef: dynamic
     override var style: dynamic
@@ -301,7 +301,7 @@ external interface FlatListProps : Props {
 external val FlatList : FC<FlatListProps>
 
 // ScrollView Component
-external interface ScrollViewProps : Props {
+external interface ScrollViewProps : PropsWithChildren {
     var alwaysBounceHorizontal: Boolean?
     var alwaysBounceVertical: Boolean?
     var automaticallyAdjustContentInsets: Boolean?
@@ -445,7 +445,7 @@ external class StyleSheet {
     }
 }
 
-external interface KeyboardAvoidingViewProps : ViewProps, Props {
+external interface KeyboardAvoidingViewProps : ViewProps {
     var behavior: dynamic
     var contentContainerStyle: dynamic
     var enabled: Boolean?
@@ -497,7 +497,7 @@ external interface KeyboardAvoidingViewProps : ViewProps, Props {
 
 external val KeyboardAvoidingView : FC<KeyboardAvoidingViewProps>
 
-external interface ModalProps : Props {
+external interface ModalProps : PropsWithChildren {
     var animationType: dynamic
     var hardwareAccelerated: Boolean?
     var onDismiss: () -> Unit
@@ -513,10 +513,9 @@ external interface ModalProps : Props {
 
 external val Modal : FC<ModalProps>
 
-external interface PressableProps : Props {
+external interface PressableProps : PropsWithChildren {
     var android_disableSound: Boolean?
     var android_ripple: dynamic
-    var children: dynamic
     var delayLongPress: Number
     var disabled: Boolean?
     var hitSlop: dynamic
@@ -575,7 +574,7 @@ external interface StatusBarProps : Props {
 
 external val StatusBar : FC<StatusBarProps>
 
-external interface TouchableHighlightProps : Props {
+external interface TouchableHighlightProps : PropsWithChildren {
     var activeOpacity: Number
     var onHideUnderlay: () -> Unit
     var onShowUnderlay: () -> Unit
@@ -593,7 +592,7 @@ external interface TouchableHighlightProps : Props {
 
 external val TouchableHighlight : FC<TouchableHighlightProps>
 
-external interface TouchableOpacityProps : Props {
+external interface TouchableOpacityProps : PropsWithChildren {
     var style: dynamic
     var onPress: () -> Unit
     var activeOpacity: Number
@@ -616,7 +615,7 @@ external interface TouchableOpacityProps : Props {
 
 external val TouchableOpacity : FC<TouchableOpacityProps>
 
-external interface TouchableWithoutFeedbackProps : Props {
+external interface TouchableWithoutFeedbackProps : PropsWithChildren {
     var accessibilityIgnoresInvertColors: Boolean?
     var accessible: Boolean?
     var accessibilityLabel: String
@@ -732,7 +731,7 @@ external interface DrawerLayoutAndroidProps : Props {
 
 external val DrawerLayoutAndroid : FC<DrawerLayoutAndroidProps>
 
-external interface TouchableNativeFeedbackProps : Props {
+external interface TouchableNativeFeedbackProps : PropsWithChildren {
     var background: dynamic
     var useForeground: Boolean?
     var hasTVPreferredFocus: Boolean?
