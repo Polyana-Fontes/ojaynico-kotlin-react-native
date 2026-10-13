@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.js.plain.objects)
     `maven-publish`
 }
 
@@ -25,6 +26,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(npm("react", libs.versions.reactVersion.get()))
             implementation(npm("react-native", libs.versions.reactNativeVersion.get()))
+            implementation(npm("react-native-svg", libs.versions.reactNativeSvgVersion.get()))
+            implementation(npm("react-native-safe-area-context", libs.versions.reactNativeSafeAreaContextVersion.get()))
         }
     }
 }

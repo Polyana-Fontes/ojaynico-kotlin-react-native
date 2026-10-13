@@ -276,6 +276,10 @@ external interface TextInputProps : Props {
     var selectionHandleColor: String
     var lineBreakStrategyIOS: String
     var disableKeyboardShortcuts: Boolean?
+    var accessibilityLabel: String
+    var accessibilityHint: String
+    var nativeID: String
+    var testID: String
 }
 
 /*external class TextInput : Component<TextInputProps, State> {
@@ -360,6 +364,8 @@ external val FlatList : FC<FlatListProps>
 
 // ScrollView Component
 external interface ScrollViewProps : PropsWithChildren {
+    var style: dynamic
+    var testID: String
     var alwaysBounceHorizontal: Boolean?
     var alwaysBounceVertical: Boolean?
     var automaticallyAdjustContentInsets: Boolean?
@@ -591,6 +597,19 @@ external interface PressableProps : PropsWithChildren {
     var onBlur: (event: dynamic) -> dynamic
     var onFocus: (event: dynamic) -> dynamic
     var unstable_pressDelay: Number
+    var accessible: Boolean?
+    var accessibilityLabel: String
+    var accessibilityHint: String
+    var accessibilityRole: String
+    var accessibilityState: dynamic
+    var role: String
+    var testID: String
+    @JsName("aria-label")
+    var ariaLabel: String
+    @JsName("aria-checked")
+    var ariaChecked: dynamic
+    @JsName("aria-disabled")
+    var ariaDisabled: Boolean?
 }
 
 external val Pressable : FC<PressableProps>
